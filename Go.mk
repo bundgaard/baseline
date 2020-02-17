@@ -17,10 +17,16 @@ gobuild = go build \
 
 ### Strip function
 ## $1 binary name
-gostrip = strip -s $1
+gostrip = $(foreach app,$(1), strip -s $(app))
 
 
 ### UPX function
 ## $1 = binary name
-goupx = upx $1
+goupx = $(foreach app,$(1), upx -q $(app))
+
+### Go Test
+## $1 Cover profile filename
+## $2 Path to source ./cmd/hello
+
+gotest = go test -short -coverprofiles=$1 `go list $2`
 
