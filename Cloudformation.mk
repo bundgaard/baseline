@@ -20,9 +20,9 @@ cf-deploy=aws cloudformation deploy \
 	--capabilities CAPABILITY_IAM \
 	--template-file $(subst .yml,,$(1))_packaged.yml \
 	--stack-name $2 \
-	$(if $3,--parameters-overrides $(foreach parm,$(3), $(parm)))
+	$(if $3,--parameter-overrides $(foreach parm,$(3), $(parm)))
 	
-
+	
 ## DELETE STACK
 # $1 STACK_NAME
 cf-delete=aws cloudformation delete-stack --stack-name $1
