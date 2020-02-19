@@ -10,7 +10,7 @@ cf-package=aws cloudformation package \
 	--template-file $1 \
 	--s3-bucket $2 \
 	--output json \
-	--output-template-file $(subst .yml,,$(2))_packaged.yml
+	--output-template-file $(subst .yml,,$(1))_packaged.yml
 
 ## DEPLOY STACK
 # $1 TEMPLATE_FILE
