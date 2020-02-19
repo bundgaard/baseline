@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+// Based on this https://towardsdatascience.com/linked-list-implementation-guide-16ed67be18e4
+
 // Option ...
 type Option struct {
 	Name string
