@@ -13,8 +13,8 @@ cf-package=aws cloudformation package \
 	--output-template-file $(subst .yml,,$(2))_packaged.yml
 
 ## DEPLOY STACK
-# $1 STACK_NAME
-# $2 TEMPLATE_FILE
+# $1 TEMPLATE_FILE
+# $2 STACK_NAME
 # $3 PARAMETERS Key=Value space separated list
 cf-deploy=aws cloudformation deploy \
 	--capabilities CAPABILITY_IAM \
