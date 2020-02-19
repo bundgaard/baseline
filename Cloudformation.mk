@@ -26,7 +26,7 @@ cf-deploy=aws cloudformation deploy \
 ## DELETE STACK
 # $1 STACK_NAME
 cf-delete=aws cloudformation delete-stack --stack-name $1
-
+cf-wait=aws cloudformation wait $1 --stack-name $2
 
 ## EMPTY BUCKET
 # $1 STACK_NAME
