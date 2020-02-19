@@ -18,8 +18,8 @@ cf-package=aws cloudformation package \
 # $3 PARAMETERS Key=Value space separated list
 cf-deploy=aws cloudformation deploy \
 	--capabilities CAPABILITY_IAM \
-	--template-file $(subst .yml,,$(2))_packaged.yml \
-	--stack-name $1 \
+	--template-file $(subst .yml,,$(1))_packaged.yml \
+	--stack-name $2 \
 	$(if $3,--parameters-override $(foreach parm,$(3), $(parm)))
 	
 
