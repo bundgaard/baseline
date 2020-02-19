@@ -16,20 +16,48 @@ type Option struct {
 // DocumentNode ...
 type DocumentNode struct {
 	Val  string
-	Root *DocumentNode
+	Type string
+	Next *DocumentNode
+}
+
+func (dn *DocumentNode) String() string {
+	return fmt.Sprintf("Node(%s,%s)", dn.Type, dn.Val)
 }
 
 // Document ...
 type Document struct {
 	Name string
 	buf  bytes.Buffer
+	size int
 	Root *DocumentNode
+}
+
+// IsEmpty ...
+func (d *Document) IsEmpty() bool {
+	return d.Root == nil
+}
+
+// InsertFront ...
+func (d *Document) InsertFront(typ, val string) {
+	if d.IsEmpty() {
+		d.size++
+		node := new(DocumentNode)
+		node.Type = typ
+		node.Val = val
+		node.Next = nil
+		d.Root = node
+	} else {
+		node := new(DocumentNode)
+		node.Type = typ
+		node.Val = val
+		node.Next = d.Root
+		d.Root = node
+	}
 }
 
 // NewDocument ...
 func NewDocument(name string) *Document {
-
-	return &Document{Name: name, Root: &DocumentNode{}}
+	return &Document{Name: name, Root: nil}
 }
 
 // DocumentHeading ...
@@ -46,6 +74,8 @@ const (
 
 // Heading ...
 func (d *Document) Heading(level DocumentHeading, title string) *Document {
+	d.InsertFront("#", title)
+
 	return d
 }
 
@@ -77,6 +107,11 @@ const readme = `
 `
 
 func main() {
+
+	d := Document{Name: "Example", Root: nil}
+	d.Heading(h1, "Hello World").Heading(h2, "Hej")
+	fmt.Println(d.Root)
+	fmt.Println(d.Root.Next)
 	flag.Parse()
 	if len(os.Args) < 2 {
 		fmt.Println("subcommand is required")
